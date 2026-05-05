@@ -1,11 +1,19 @@
 import AboutPage from "@/components/AboutPage";
-import HomePage from "@/components/HomePage";
+import HeroPage from "@/components/HeroPage";
+import Project from "@/components/Project";
+import SkillPage from "@/components/SkillPage";
+import Footer from "@/components/Footer";
+import Education from "@/components/Education";
 
 export default function Home() {
   return (
     <main className="min-h-screen">
-      <HomePage />
+      <HeroPage />
       <AboutPage />
+      <SkillPage />
+      <Project />
+      <Education />
+      <Footer />
     </main>
   );
 }

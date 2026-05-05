@@ -1,6 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip"
-import Background from "@/components/Background"
+// import Background from "@/components/Background"
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 
@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col">
         <TooltipProvider>
-          <Background />
+          {/* <Background /> */}
           <Navbar />
           {children}
         </TooltipProvider>
