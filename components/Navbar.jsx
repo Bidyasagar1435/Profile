@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { name: "Hero", href: "#hero" },
+  { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
   { name: "Skills", href: "#skills" },
   { name: "Projects", href: "#projects" },
@@ -21,9 +21,27 @@ const Navbar = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
+
     window.addEventListener("scroll", handleScroll);
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Smooth Scroll Function
+  const handleScrollToSection = (e, targetId) => {
+    e.preventDefault();
+
+    const section = document.querySelector(targetId);
+
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+
+    setIsOpen(false);
+  };
 
   return (
     <nav
@@ -31,15 +49,16 @@ const Navbar = () => {
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         scrolled
           ? "bg-nav/80 backdrop-blur-md shadow-md border-b border-border"
-          : "bg-transparent",
+          : "bg-transparent"
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo - BS */}
+          {/* Logo */}
           <div className="shrink-0">
             <a
-              href="#hero"
+              href="#home"
+              onClick={(e) => handleScrollToSection(e, "#home")}
               className="text-2xl font-bold bg-linear-to-r from-blue-500 via-indigo-500 to-purple-500 text-transparent bg-clip-text hover:scale-105 transition-transform duration-300"
             >
               BS
@@ -53,6 +72,9 @@ const Navbar = () => {
                 <motion.a
                   key={link.name}
                   href={link.href}
+                  onClick={(e) =>
+                    handleScrollToSection(e, link.href)
+                  }
                   className="relative text-nav-foreground hover:text-primary transition-colors duration-300 py-2 group cursor-pointer"
                   initial="initial"
                   whileHover="hover"
@@ -68,7 +90,9 @@ const Navbar = () => {
                   style={{ transformOrigin: "center" }}
                 >
                   {/* Text */}
-                  <span className="relative z-10 block">{link.name}</span>
+                  <span className="relative z-10 block">
+                    {link.name}
+                  </span>
 
                   {/* Underline */}
                   <motion.span
@@ -90,7 +114,7 @@ const Navbar = () => {
                     transition={{ duration: 0.3 }}
                   />
 
-                  {/* ✨ Sparkle */}
+                  {/* Sparkle */}
                   <motion.span
                     className="absolute -top-1 -right-3 text-xs pointer-events-none"
                     variants={{
@@ -110,7 +134,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -148,7 +172,7 @@ const Navbar = () => {
       <div
         className={cn(
           "md:hidden overflow-hidden transition-all duration-300",
-          isOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0",
+          isOpen ? "max-h-72 opacity-100" : "max-h-0 opacity-0"
         )}
       >
         <div className="bg-nav/95 backdrop-blur-md px-4 py-4 space-y-2 border-t border-border">
@@ -156,7 +180,9 @@ const Navbar = () => {
             <a
               key={link.name}
               href={link.href}
-              onClick={() => setIsOpen(false)}
+              onClick={(e) =>
+                handleScrollToSection(e, link.href)
+              }
               className="block text-nav-foreground hover:text-primary py-2 px-3 rounded-md hover:bg-accent transition-all duration-300 hover:scale-105"
             >
               {link.name}
